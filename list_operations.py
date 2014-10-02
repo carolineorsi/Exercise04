@@ -77,8 +77,8 @@ def replace_middle(input_list):
 
 def delete_third_and_seventh(input_list):
     """Remove the third and seventh elements of the input list."""
+    del input_list[6]
     del input_list[2]
-    del input_list[5]
 
 def delete_middle(input_list):
     """Remove all elements from the input list except for the first two and the
@@ -151,8 +151,8 @@ def custom_index(input_list, value):
 def custom_count(input_list, value):
     """custom_count(input_list, value) imitates input_list.count(value)"""
     count = 0
-    for i in range(custom_len(input_list)):
-        if input_list[i] == value:
+    for item in input_list:
+        if item == value:
             count += 1
     return count
 
@@ -166,8 +166,8 @@ def custom_reverse(input_list):
 
 def custom_contains(input_list, value):
     """custom_contains(input_list, value) imitates (value in input_list)"""
-    for i in range(custom_len(input_list)):
-        if input_list[i] == value:
+    for item in input_list:
+        if item == value:
             return True
     return False
 
