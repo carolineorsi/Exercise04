@@ -71,9 +71,9 @@ def replace_middle(input_list):
     """Replace all elements of the input list with the the values 42 and 37, in
     that order, except for the first two and last two elements.
     """
-    del input_list[2:-2]
-    input_list.insert(2, 42)
-    input_list.insert(3, 37)
+    input_list[2] = 42
+    input_list[3] = 37
+    del input_list[4:-2]
 
 def delete_third_and_seventh(input_list):
     """Remove the third and seventh elements of the input list."""
@@ -112,46 +112,73 @@ def custom_len(input_list):
 # For the next four functions, get clever using slice operations described in the first half
 def custom_append(input_list, value):
     """custom_append(input_list, value) imitates input_list.append(value)"""
-    value_list = [0]
-    value_list[0] = value
-    return input_list + value_list
+    input_list[custom_len(input_list):] = [value]
 
 def custom_extend(input_list, values):
     """custom_extend(input_list, values) imitates input_list.extend(values)"""
-    return input_list + values
+    input_list[custom_len(input_list):] = values
 
 def custom_insert(input_list, index, value):
     """custom_insert(input_list, index, value) imitates
     input_list.insert(index, value)
     """
-    pass
+    if index >= custom_len(input_list):
+        custom_append(input_list, value)
+    else:
+        temp = input_list[index:]
+        input_list[index:] = [value]
+        input_list[index + 1:] = temp   
 
 def custom_remove(input_list, value):
     """custom_remove(input_list, value) imitates input_list.remove(value)"""
-    pass
+    for i in range(custom_len(input_list)):
+        if input_list[i] == value:
+            del input_list[i]
+            break
 
 def custom_pop(input_list):
     """custom_pop(input_list) imitates input_list.pop()"""
-    pass
+    last_item = input_list[-1]
+    del input_list[-1]
+    return last_item
 
 def custom_index(input_list, value):
     """custom_index(input_list, value) imitates input_list.index(value)"""
-    pass
+    for i in range(custom_len(input_list)):
+        if input_list[i] == value:
+            return i
 
 def custom_count(input_list, value):
     """custom_count(input_list, value) imitates input_list.count(value)"""
-    pass
+    count = 0
+    for i in range(custom_len(input_list)):
+        if input_list[i] == value:
+            count += 1
+    return count
 
 def custom_reverse(input_list):
     """custom_reverse(input_list) imitates input_list.reverse()"""
-    pass
+    for i in range(custom_len(input_list)/2):
+        temp = input_list[i]
+        input_list[i] = input_list[-(i + 1)]
+        input_list[-(i + 1)] = temp
+
 
 def custom_contains(input_list, value):
     """custom_contains(input_list, value) imitates (value in input_list)"""
-    pass
+    for i in range(custom_len(input_list)):
+        if input_list[i] == value:
+            return True
+    return False
 
 def custom_equality(some_list, another_list):
     """custom_equality(some_list, another_list) imitates
     (some_list == another_list)
     """
-    pass
+    if custom_len(some_list) == custom_len(another_list):
+        for i in range(custom_len(some_list)):
+            if some_list[i] != another_list[i]:
+                return False
+        return True
+    else:
+        return False
